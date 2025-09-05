@@ -40,4 +40,31 @@ public function store(Request $request) {
 }
 
 
+
+
+public function edit($id) {
+    $product = Product::findOrFail($id);
+    return view('shop.edit-product', compact('product'));
+}
+
+public function update(Request $request, $id) {
+    $product = Product::findOrFail($id);
+
+    $validated = $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+        'price' => 'required|numeric',
+        'image' => 'nullable|image'
+    ]);
+
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('products', 'public');
+        $validated['image'] = $path;
+    }
+
+    $product->update($validated);
+    return redirect('/products')->with('success', 'Product updated successfully!');
+}
+
+
 }

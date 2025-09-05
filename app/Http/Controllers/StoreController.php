@@ -18,11 +18,6 @@ class StoreController extends Controller
         return view('shop.about');
     }
 
-    public function contact ()
-    {
-
-        return view('shop.contact');
-    }
      public function cart ()
     {
 

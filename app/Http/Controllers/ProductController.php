@@ -16,4 +16,28 @@ public function show($id) {
     return view('shop.product-details', compact('product'));
 }
 
+
+
+public function create() {
+    return view('shop.create-product');
+}
+
+public function store(Request $request) {
+    $validated = $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+        'price' => 'required|numeric',
+        'image' => 'nullable|image'
+    ]);
+
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('products', 'public');
+        $validated['image'] = $path;
+    }
+
+    Product::create($validated);
+    return redirect('/products')->with('success', 'Product created successfully!');
+}
+
+
 }

@@ -20,3 +20,6 @@ Route::get('/register', [StoreController::class, 'register'])->name('register');
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 
+Route::get('/products/create', [ProductController::class, 'create']);
+Route::post('/products', [ProductController::class, 'store']);
+

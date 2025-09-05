@@ -29,7 +29,8 @@
 		</section>
 
 		<section class="contact">
-			<form action="">
+			<form action="{{ route('contact.submit') }}" method="POST">
+                  @csrf
 				<h3>Get in Touch</h3>
 				<p>
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe

@@ -6,15 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    /**
+     * Run the migrations.
+     */
+   public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
-            $table->decimal('price', 8, 2);
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2); 
             $table->boolean('on_sale')->default(false);
-            $table->timestamps(); // created_at + updated_at
+            $table->string('image')->nullable();
+
+            // foreign key to categories
+            $table->foreignId('category_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 

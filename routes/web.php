@@ -3,6 +3,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,4 +37,14 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 Route::get('/products/{id}/details', [StoreController::class, 'productDetails'])->name('products.details');
 Route::get('/products/{id}', [ProductController::class, 'show']);
 
+Route::middleware(['auth','can:access-admin-panel'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/products', [AdminController::class, 'products'])->name('products.index');
+        Route::get('/categories', [AdminController::class, 'categories'])->name('categories.index');
 
+        
+        // Route::resource('products', ProductController::class)->except(['show','create','store'])->names('products');
+    });

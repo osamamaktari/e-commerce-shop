@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Reivew;
+use App\Models\Product; 
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
@@ -17,7 +20,7 @@ class ReviewFactory extends Factory
 
     public function definition()
     {
-        
+
         $product = Product::inRandomOrder()->first();
         $user = User::inRandomOrder()->first();
 
